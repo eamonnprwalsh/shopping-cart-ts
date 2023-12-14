@@ -1,5 +1,5 @@
 import { ShoppingCart } from '../types';
 
-export interface TaxProcessor {
-  calculateTax(cart: ShoppingCart): number;
+export interface TaxProcessor<T> {
+  calculateTax(cart: ShoppingCart<T>): number;
 }

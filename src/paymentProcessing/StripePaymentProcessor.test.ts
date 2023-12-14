@@ -1,18 +1,28 @@
 import { StripePaymentProcessor } from './StripePaymentProcessor';
-import { ShoppingCart } from '../types';
-import { PaymentProcessor } from './PaymentProcessor';
+import { ShoppingCart, StripeItem } from '../types';
 import { TaxProcessor } from '../taxProcessing/TaxProcessor';
+import { STRIPE_MERCHANT_ID } from '../constants';
 
-class MockTaxProcessor implements TaxProcessor {
-  calculateTax(cart: ShoppingCart): number {
+class MockTaxProcessor implements TaxProcessor<StripeItem> {
+  calculateTax(cart: ShoppingCart<StripeItem>): number {
     return 10;
   }
 }
 
-const mockShoppingCart: ShoppingCart = {
+const mockShoppingCart: ShoppingCart<StripeItem> = {
   items: [
-    { productId: '1', quantity: 2, price: 20 },
-    { productId: '2', quantity: 1, price: 30 },
+    {
+      productId: '1',
+      quantity: 2,
+      price: 20,
+      stripeMerchantId: STRIPE_MERCHANT_ID,
+    },
+    {
+      productId: '2',
+      quantity: 1,
+      price: 30,
+      stripeMerchantId: STRIPE_MERCHANT_ID,
+    },
   ],
 };
 

@@ -1,8 +1,9 @@
 import { ShoppingCartService } from './ShoppingCartService';
-import { Region, ShoppingCart } from '../types';
+import { DefaultItem, Region, ShoppingCart } from '../types';
 import { RegionalTaxProcessorFactory } from '../taxProcessing/RegionalTaxProcessorFactory';
 import { SimpleTaxProcessor } from '../taxProcessing/SimpleTaxProcessor';
 import { TaxProcessor } from '../taxProcessing/TaxProcessor';
+import { EUROPE } from '../constants';
 
 class MockPaymentProcessor {
   processPayment(cart: any) {
@@ -13,7 +14,7 @@ class MockPaymentProcessor {
 class MockRegionalTaxProcessorFactorySimple
   implements RegionalTaxProcessorFactory
 {
-  getTaxProcessor(region: Region): TaxProcessor {
+  getTaxProcessor(region: Region): TaxProcessor<DefaultItem> {
     return new SimpleTaxProcessor();
   }
 }
@@ -27,14 +28,14 @@ describe('ShoppingCartService', () => {
       mockPaymentProcessor,
       mockRegionalTaxProcessorFactory
     );
-    const mockShoppingCart: ShoppingCart = {
+    const mockShoppingCart: ShoppingCart<DefaultItem> = {
       items: [
         { productId: '1', quantity: 2, price: 20 },
         { productId: '2', quantity: 1, price: 30 },
       ],
     };
 
-    const result = shoppingCartService.checkout(mockShoppingCart, Region.USA);
+    const result = shoppingCartService.checkout(mockShoppingCart, EUROPE);
     expect(result).toBe(77);
   });
 });

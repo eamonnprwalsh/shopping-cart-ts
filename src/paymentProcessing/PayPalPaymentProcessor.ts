@@ -1,9 +1,13 @@
 import { TaxProcessor } from '../taxProcessing/TaxProcessor';
-import { ShoppingCart } from '../types';
+import { DefaultItem, StripeItem, ShoppingCart, PayPalItem } from '../types';
 import { PaymentProcessor } from './PaymentProcessor';
+import { PAYPAL_COMMISSION } from '../constants';
 
-export class PayPalPaymentProcessor implements PaymentProcessor {
-  processPayment(cart: ShoppingCart, taxProcessor: TaxProcessor): number {
+export class PayPalPaymentProcessor implements PaymentProcessor<PayPalItem> {
+  processPayment(
+    cart: ShoppingCart<PayPalItem>,
+    taxProcessor: TaxProcessor<PayPalItem>
+  ): number {
     const subtotal = cart.items.reduce(
       (total, item) => total + item.quantity * item.price,
       0

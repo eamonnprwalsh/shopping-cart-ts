@@ -1,17 +1,21 @@
-export interface ShoppingCart {
-  items: Item[];
+import { EUROPE, USA } from './constants';
+
+export interface ShoppingCart<T> {
+  items: T[];
 }
 
-interface Item {
+export interface DefaultItem {
   productId: string;
   quantity: number;
   price: number;
 }
 
-const EUROPE = 'europe';
-const USA = 'usa';
-
-export enum Region {
-  EUROPE,
-  USA,
+export interface StripeItem extends DefaultItem {
+  stripeMerchantId: string;
 }
+
+export interface PayPalItem extends DefaultItem {
+  paypalMerchantId: string;
+}
+
+export type Region = typeof EUROPE | typeof USA;

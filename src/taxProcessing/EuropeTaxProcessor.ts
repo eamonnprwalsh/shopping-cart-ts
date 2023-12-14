@@ -1,8 +1,8 @@
-import { ShoppingCart } from '../types';
+import { DefaultItem, ShoppingCart } from '../types';
 import { TaxProcessor } from './TaxProcessor';
 
-export class EuropeTaxProcessor implements TaxProcessor {
-  calculateTax(cart: ShoppingCart): number {
+export class EuropeTaxProcessor implements TaxProcessor<DefaultItem> {
+  calculateTax(cart: ShoppingCart<DefaultItem>): number {
     const taxRate = 0.11;
     return (
       cart.items.reduce(
