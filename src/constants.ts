@@ -4,3 +4,6 @@ export const PAYPAL_MERCHANT_ID = 'PP';
 export const STRIPE_MERCHANT_ID = 'ST';
 export const EUROPE = 'EUROPE';
 export const USA = 'USA';
+export const EUROPE_TAX = 0.11;
+export const USA_TAX = 0.12;
+export const SIMPLE_TAX = 0.1;
