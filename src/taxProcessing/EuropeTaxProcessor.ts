@@ -1,14 +1,14 @@
 import { EUROPE_TAX } from '../constants';
-import { DefaultItem, ShoppingCart } from '../types';
 import { TaxProcessor } from './TaxProcessor';
 
-export class EuropeTaxProcessor implements TaxProcessor<DefaultItem> {
-  calculateTax(cart: ShoppingCart<DefaultItem>): number {
-    return (
-      cart.items.reduce(
-        (total, item) => total + item.quantity * item.price,
-        0
-      ) * EUROPE_TAX
-    );
+export class EuropeTaxProcessor implements TaxProcessor<string> {
+  calculateTax(netTotal: string): number {
+    const netTotalAsNumber = parseFloat(netTotal);
+
+    if (isNaN(netTotalAsNumber as number)) {
+      throw new Error('Invalid netTotal. Cannot convert to a number.');
+    }
+
+    return netTotalAsNumber * EUROPE_TAX;
   }
 }

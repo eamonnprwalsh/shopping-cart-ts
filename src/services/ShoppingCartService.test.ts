@@ -4,6 +4,7 @@ import { RegionalTaxProcessorFactory } from '../taxProcessing/RegionalTaxProcess
 import { SimpleTaxProcessor } from '../taxProcessing/SimpleTaxProcessor';
 import { TaxProcessor } from '../taxProcessing/TaxProcessor';
 import { EUROPE } from '../constants';
+import { EuropeTaxProcessor } from '../taxProcessing/EuropeTaxProcessor';
 
 class MockPaymentProcessor {
   processPayment(cart: any) {
@@ -11,19 +12,46 @@ class MockPaymentProcessor {
   }
 }
 
-class MockRegionalTaxProcessorFactorySimple
-  implements RegionalTaxProcessorFactory
+class MockRegionalTaxProcessorFactoryNumber
+  implements RegionalTaxProcessorFactory<number>
 {
-  getTaxProcessor(region: Region): TaxProcessor<DefaultItem> {
+  getTaxProcessor(region: Region): TaxProcessor<number> {
     return new SimpleTaxProcessor();
   }
 }
 
+class MockRegionalTaxProcessorFactoryString
+  implements RegionalTaxProcessorFactory<string>
+{
+  getTaxProcessor(region: Region): TaxProcessor<string> {
+    return new EuropeTaxProcessor();
+  }
+}
+
 describe('ShoppingCartService', () => {
-  it('should checkout and process payment successfully', () => {
+  it('should checkout and process payment successfully, number', () => {
     const mockPaymentProcessor = new MockPaymentProcessor();
     const mockRegionalTaxProcessorFactory =
-      new MockRegionalTaxProcessorFactorySimple();
+      new MockRegionalTaxProcessorFactoryNumber();
+    const shoppingCartService = new ShoppingCartService(
+      mockPaymentProcessor,
+      mockRegionalTaxProcessorFactory
+    );
+    const mockShoppingCart: ShoppingCart<DefaultItem> = {
+      items: [
+        { productId: '1', quantity: 2, price: 20 },
+        { productId: '2', quantity: 1, price: 30 },
+      ],
+    };
+
+    const result = shoppingCartService.checkout(mockShoppingCart, EUROPE);
+    expect(result).toBe(77);
+  });
+
+  it('should checkout and process payment successfully, number', () => {
+    const mockPaymentProcessor = new MockPaymentProcessor();
+    const mockRegionalTaxProcessorFactory =
+      new MockRegionalTaxProcessorFactoryString();
     const shoppingCartService = new ShoppingCartService(
       mockPaymentProcessor,
       mockRegionalTaxProcessorFactory
