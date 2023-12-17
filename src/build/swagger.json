@@ -1,0 +1,189 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"PayPalItem": {
+				"properties": {
+					"productId": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"paypalMerchantId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"productId",
+					"quantity",
+					"price",
+					"paypalMerchantId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ShoppingCart_PayPalItem_": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/PayPalItem"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"items"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StripeItem": {
+				"properties": {
+					"productId": {
+						"type": "string"
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"stripeMerchantId": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"productId",
+					"quantity",
+					"price",
+					"stripeMerchantId"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ShoppingCart_StripeItem_": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/StripeItem"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"items"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "shopping-cart-ts",
+		"version": "1.0.0",
+		"description": "Sample Express Shopping Cart",
+		"license": {
+			"name": "MIT"
+		},
+		"contact": {
+			"name": "Your Name"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/shopping/paypalCheckout": {
+			"post": {
+				"operationId": "PaypalCheckout",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "number",
+									"format": "double"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"cart": {
+										"$ref": "#/components/schemas/ShoppingCart_PayPalItem_"
+									}
+								},
+								"required": [
+									"cart"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/shopping/stripeCheckout": {
+			"post": {
+				"operationId": "StripeCheckout",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "number",
+									"format": "double"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"cart": {
+										"$ref": "#/components/schemas/ShoppingCart_StripeItem_"
+									}
+								},
+								"required": [
+									"cart"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8090/api"
+		}
+	]
+}

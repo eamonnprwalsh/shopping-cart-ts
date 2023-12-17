@@ -1,7 +1,7 @@
 import { PaymentProcessor } from './PaymentProcessor';
 import { TaxProcessor } from '../taxProcessing/TaxProcessor';
-import { ShoppingCart, StripeItem } from '../types';
-import { STRIPE_COMMISSION } from '../constants';
+import { ShoppingCart, StripeItem } from '../../../types';
+import { STRIPE_COMMISSION } from '../../../constants';
 
 export class StripePaymentProcessor
   implements PaymentProcessor<StripeItem, number>

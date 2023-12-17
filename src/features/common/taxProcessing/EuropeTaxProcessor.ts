@@ -1,4 +1,4 @@
-import { EUROPE_TAX } from '../constants';
+import { EUROPE_TAX } from '../../../constants';
 import { TaxProcessor } from './TaxProcessor';
 
 export class EuropeTaxProcessor implements TaxProcessor<string> {

@@ -1,7 +1,7 @@
 import { StripePaymentProcessor } from './StripePaymentProcessor';
-import { ShoppingCart, StripeItem } from '../types';
+import { ShoppingCart, StripeItem } from '../../../types';
 import { TaxProcessor } from '../taxProcessing/TaxProcessor';
-import { STRIPE_MERCHANT_ID } from '../constants';
+import { STRIPE_MERCHANT_ID } from '../../../constants';
 
 class MockTaxProcessor implements TaxProcessor<number> {
   calculateTax(netTotal: number): number {

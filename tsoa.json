@@ -1,0 +1,18 @@
+{
+  "entryFile": "src/app.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": ["src/**/controller.ts"],
+  "spec": {
+    "outputDirectory": "./src/build",
+    "specVersion": 3,
+    "schemes": ["http"],
+    "host": "localhost:8090",
+    "basePath": "/api/",
+    "name": "shopping-cart-ts",
+    "version": "1.0.0"
+  },
+  "routes": {
+    "routesDir": "./src/build",
+    "basePath": "/api"
+  }
+}

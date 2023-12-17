@@ -1,7 +1,12 @@
 import { TaxProcessor } from '../taxProcessing/TaxProcessor';
-import { DefaultItem, StripeItem, ShoppingCart, PayPalItem } from '../types';
+import {
+  DefaultItem,
+  StripeItem,
+  ShoppingCart,
+  PayPalItem,
+} from '../../../types';
 import { PaymentProcessor } from './PaymentProcessor';
-import { PAYPAL_COMMISSION } from '../constants';
+import { PAYPAL_COMMISSION } from '../../../constants';
 
 export class PayPalPaymentProcessor
   implements PaymentProcessor<PayPalItem, number>
