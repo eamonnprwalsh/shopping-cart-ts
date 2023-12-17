@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "8d50f429-265e-46cc-a4d6-642f86c7a9b4",
+		"name": "Shopping Cart TS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7981002"
+	},
+	"item": [
+		{
+			"name": "stripeCheckout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n  \"cart\": {\n    \"items\": [\n      { \"productId\": \"1\", \"quantity\": 2, \"price\": 10.99, \"stripeMerchantId\": \"ST\" },\n      { \"productId\": \"2\", \"quantity\": 1, \"price\": 5.99, \"stripeMerchantId\": \"ST\" }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/shopping/stripeCheckout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"shopping",
+						"stripeCheckout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "paypalCheckout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \n  \"cart\": {\n    \"items\": [\n      { \"productId\": \"1\", \"quantity\": 2, \"price\": 10.99, \"stripeMerchantId\": \"ST\" },\n      { \"productId\": \"2\", \"quantity\": 1, \"price\": 5.99, \"stripeMerchantId\": \"ST\" }\n    ]\n  },\n  \"region\": \"EUROPE\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/shopping/paypalCheckout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"shopping",
+						"paypalCheckout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRegion",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

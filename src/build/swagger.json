@@ -20,7 +20,11 @@
 						"format": "double"
 					},
 					"paypalMerchantId": {
-						"type": "string"
+						"type": "string",
+						"enum": [
+							"PP"
+						],
+						"nullable": false
 					}
 				},
 				"required": [
@@ -61,7 +65,11 @@
 						"format": "double"
 					},
 					"stripeMerchantId": {
-						"type": "string"
+						"type": "string",
+						"enum": [
+							"ST"
+						],
+						"nullable": false
 					}
 				},
 				"required": [

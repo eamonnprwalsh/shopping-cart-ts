@@ -13,7 +13,7 @@ export async function getRegionFromIP(
     const response = await axios.get(
       `${IPSTACK_URL}${ipAddress}?access_key=${IPSTACK_API_KEY}`
     );
-    const region = response.data.region_name;
+    const region = response.data.continent_name;
     return region || null;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -2,14 +2,13 @@ import { EuropeTaxProcessor } from './EuropeTaxProcessor';
 import { DefaultTaxProcessor } from './DefaultTaxProcessor';
 import { USATaxProcessor } from './USATaxProcessor';
 import { RegionalTaxProcessorFactory } from './RegionalTaxProcessorFactory';
-import { getRegionFromIP } from '../../../services/RegionService';
 
 jest.mock('../../../services/RegionService', () => ({
   _esModule: true,
   getRegionFromIP: jest
     .fn()
-    .mockResolvedValueOnce('EUROPE')
-    .mockResolvedValueOnce('USA')
+    .mockResolvedValueOnce('Europe')
+    .mockResolvedValueOnce('North America')
     .mockResolvedValueOnce('unknown'),
 }));
 
