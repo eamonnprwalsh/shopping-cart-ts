@@ -1,9 +1,9 @@
 import { StripePaymentProcessor } from './StripePaymentProcessor';
 import { ShoppingCart, StripeItem } from '../../../types';
-import { TaxProcessor } from '../taxProcessing/TaxProcessor';
+import { TaxCalculator } from '../taxProcessing/TaxCalculator';
 import { STRIPE_MERCHANT_ID } from '../../../constants';
 
-class MockTaxProcessor implements TaxProcessor<number> {
+class MockTaxCalculator implements TaxCalculator<number> {
   calculateTax(netTotal: number): number {
     return 10;
   }
@@ -31,7 +31,7 @@ describe('test StripePaymentProcessor', () => {
     // (2 * 20 + 1 * 30 ) * 1.02 + 10 = 83.5
     const result = new StripePaymentProcessor().processPayment(
       mockShoppingCart,
-      new MockTaxProcessor()
+      new MockTaxCalculator()
     );
     expect(result).toBe(83.5);
   });

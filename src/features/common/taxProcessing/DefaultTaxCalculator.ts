@@ -1,7 +1,7 @@
 import { DEFAULT_TAX } from '../../../constants';
-import { TaxProcessor } from './TaxProcessor';
+import { TaxCalculator } from './TaxCalculator';
 
-export class DefaultTaxProcessor implements TaxProcessor<number> {
+export class DefaultTaxCalculator implements TaxCalculator<number> {
   calculateTax(netTotal: number): number {
     return netTotal * DEFAULT_TAX;
   }

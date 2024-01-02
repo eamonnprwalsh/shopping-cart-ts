@@ -1,10 +1,10 @@
 import { ShoppingCartService } from './ShoppingCartService';
 import { DefaultItem, Region, ShoppingCart } from '../types';
-import { RegionalTaxProcessorFactory } from '../features/common/taxProcessing/RegionalTaxProcessorFactory';
-import { DefaultTaxProcessor } from '../features/common/taxProcessing/DefaultTaxProcessor';
-import { TaxProcessor } from '../features/common/taxProcessing/TaxProcessor';
+import { RegionalTaxCalculatorFactory } from '../features/common/taxProcessing/RegionalTaxCalculatorFactory';
+import { DefaultTaxCalculator } from '../features/common/taxProcessing/DefaultTaxCalculator';
+import { TaxCalculator } from '../features/common/taxProcessing/TaxCalculator';
 import { EUROPE } from '../constants';
-import { EuropeTaxProcessor } from '../features/common/taxProcessing/EuropeTaxProcessor';
+import { EuropeTaxCalculator } from '../features/common/taxProcessing/EuropeTaxCalculator';
 
 jest.mock('../services/RegionService', () => ({
   getRegionFromIP: jest.fn(),
@@ -16,15 +16,15 @@ class MockPaymentProcessor {
   }
 }
 
-class MockRegionalTaxProcessorFactoryNumber extends RegionalTaxProcessorFactory<number> {
-  async getTaxProcessor(ipAddress: string): Promise<TaxProcessor<number>> {
-    return new DefaultTaxProcessor();
+class MockRegionalTaxCalculatorFactoryNumber extends RegionalTaxCalculatorFactory<number> {
+  async getTaxCalculator(ipAddress: string): Promise<TaxCalculator<number>> {
+    return new DefaultTaxCalculator();
   }
 }
 
-class MockRegionalTaxProcessorFactoryString extends RegionalTaxProcessorFactory<string> {
-  async getTaxProcessor(ipAddress: string): Promise<TaxProcessor<string>> {
-    return new EuropeTaxProcessor();
+class MockRegionalTaxCalculatorFactoryString extends RegionalTaxCalculatorFactory<string> {
+  async getTaxCalculator(ipAddress: string): Promise<TaxCalculator<string>> {
+    return new EuropeTaxCalculator();
   }
 }
 
@@ -32,7 +32,7 @@ describe('ShoppingCartService', () => {
   it('should checkout and process payment successfully, number', async () => {
     const mockPaymentProcessor = new MockPaymentProcessor();
     const mockRegionalTaxProcessorFactory =
-      new MockRegionalTaxProcessorFactoryNumber();
+      new MockRegionalTaxCalculatorFactoryNumber();
     const shoppingCartService = new ShoppingCartService(
       mockPaymentProcessor,
       mockRegionalTaxProcessorFactory
@@ -51,7 +51,7 @@ describe('ShoppingCartService', () => {
   it('should checkout and process payment successfully, string', async () => {
     const mockPaymentProcessor = new MockPaymentProcessor();
     const mockRegionalTaxProcessorFactory =
-      new MockRegionalTaxProcessorFactoryString();
+      new MockRegionalTaxCalculatorFactoryString();
     const shoppingCartService = new ShoppingCartService(
       mockPaymentProcessor,
       mockRegionalTaxProcessorFactory

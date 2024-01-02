@@ -1,10 +1,5 @@
-import { TaxProcessor } from '../taxProcessing/TaxProcessor';
-import {
-  DefaultItem,
-  StripeItem,
-  ShoppingCart,
-  PayPalItem,
-} from '../../../types';
+import { TaxCalculator } from '../taxProcessing/TaxCalculator';
+import { ShoppingCart, PayPalItem } from '../../../types';
 import { PaymentProcessor } from './PaymentProcessor';
 import { PAYPAL_COMMISSION } from '../../../constants';
 
@@ -13,12 +8,12 @@ export class PayPalPaymentProcessor
 {
   processPayment(
     cart: ShoppingCart<PayPalItem>,
-    taxProcessor: TaxProcessor<number>
+    taxCalculator: TaxCalculator<number>
   ): number {
     const netTotal = cart.items.reduce(
       (total, item) => total + item.quantity * item.price,
       0
     );
-    return netTotal * PAYPAL_COMMISSION + taxProcessor.calculateTax(netTotal);
+    return netTotal * PAYPAL_COMMISSION + taxCalculator.calculateTax(netTotal);
   }
 }

@@ -1,8 +1,8 @@
 import { Route, Controller, Post, Body, Request } from 'tsoa';
 import { Request as ExpressRequest } from 'express';
 import { ShoppingCartService } from '../../services/ShoppingCartService';
-import { PayPalItem, Region, ShoppingCart } from '../../types';
-import { RegionalTaxProcessorFactory } from '../common/taxProcessing/RegionalTaxProcessorFactory';
+import { PayPalItem, ShoppingCart } from '../../types';
+import { RegionalTaxCalculatorFactory } from '../common/taxProcessing/RegionalTaxCalculatorFactory';
 import { PayPalPaymentProcessor } from '../../features/common/paymentProcessing/PayPalPaymentProcessor';
 
 @Route('shopping')
@@ -13,7 +13,7 @@ export class PayPalShoppingController extends Controller {
     super();
     this.shoppingCartService = new ShoppingCartService(
       new PayPalPaymentProcessor(),
-      new RegionalTaxProcessorFactory<string | number>()
+      new RegionalTaxCalculatorFactory<string | number>()
     );
   }
 

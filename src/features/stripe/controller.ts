@@ -1,8 +1,8 @@
 import { Route, Controller, Post, Body, Request } from 'tsoa';
 import { Request as ExpressRequest } from 'express';
 import { ShoppingCartService } from '../../services/ShoppingCartService';
-import { Region, ShoppingCart, StripeItem } from '../../types';
-import { RegionalTaxProcessorFactory } from '../common/taxProcessing/RegionalTaxProcessorFactory';
+import { ShoppingCart, StripeItem } from '../../types';
+import { RegionalTaxCalculatorFactory } from '../common/taxProcessing/RegionalTaxCalculatorFactory';
 import { StripePaymentProcessor } from '../common/paymentProcessing/StripePaymentProcessor';
 
 @Route('shopping')
@@ -13,7 +13,7 @@ export class StripeShoppingController extends Controller {
     super();
     this.shoppingCartService = new ShoppingCartService(
       new StripePaymentProcessor(),
-      new RegionalTaxProcessorFactory<string | number>()
+      new RegionalTaxCalculatorFactory<string | number>()
     );
   }
 

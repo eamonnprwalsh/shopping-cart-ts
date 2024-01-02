@@ -1,7 +1,7 @@
 import { EUROPE_TAX } from '../../../constants';
-import { TaxProcessor } from './TaxProcessor';
+import { TaxCalculator } from './TaxCalculator';
 
-export class EuropeTaxProcessor implements TaxProcessor<string> {
+export class EuropeTaxCalculator implements TaxCalculator<string> {
   calculateTax(netTotal: string): number {
     const netTotalAsNumber = parseFloat(netTotal);
 

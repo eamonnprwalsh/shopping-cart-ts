@@ -1,6 +1,9 @@
-import { TaxProcessor } from '../taxProcessing/TaxProcessor';
+import { TaxCalculator } from '../taxProcessing/TaxCalculator';
 import { ShoppingCart } from '../../../types';
 
 export interface PaymentProcessor<I, V> {
-  processPayment(cart: ShoppingCart<I>, taxProcessor: TaxProcessor<V>): number;
+  processPayment(
+    cart: ShoppingCart<I>,
+    taxCalculator: TaxCalculator<V>
+  ): number;
 }

@@ -1,5 +1,5 @@
 import { PaymentProcessor } from './PaymentProcessor';
-import { TaxProcessor } from '../taxProcessing/TaxProcessor';
+import { TaxCalculator } from '../taxProcessing/TaxCalculator';
 import { ShoppingCart, StripeItem } from '../../../types';
 import { STRIPE_COMMISSION } from '../../../constants';
 
@@ -8,12 +8,12 @@ export class StripePaymentProcessor
 {
   processPayment(
     cart: ShoppingCart<StripeItem>,
-    taxProcessor: TaxProcessor<number>
+    taxCalculator: TaxCalculator<number>
   ): number {
     const subtotal = cart.items.reduce(
       (total, item) => total + item.quantity * item.price,
       0
     );
-    return subtotal * STRIPE_COMMISSION + taxProcessor.calculateTax(subtotal);
+    return subtotal * STRIPE_COMMISSION + taxCalculator.calculateTax(subtotal);
   }
 }

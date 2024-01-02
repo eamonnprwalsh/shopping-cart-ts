@@ -1,12 +1,12 @@
 import { PaymentProcessor } from '../features/common/paymentProcessing/PaymentProcessor';
 import { DefaultItem, ShoppingCart } from '../types';
-import { RegionalTaxProcessorFactory } from '../features/common/taxProcessing/RegionalTaxProcessorFactory';
+import { RegionalTaxCalculatorFactory } from '../features/common/taxProcessing/RegionalTaxCalculatorFactory';
 
 // High-level-Module
 export class ShoppingCartService {
   constructor(
     private readonly paymentProcessor: PaymentProcessor<DefaultItem, number>,
-    private readonly taxProcessorFactory: RegionalTaxProcessorFactory<
+    private readonly taxCalculatorFactory: RegionalTaxCalculatorFactory<
       string | number
     >
   ) {}
@@ -16,7 +16,7 @@ export class ShoppingCartService {
     ipAddress: string
   ): Promise<number> {
     const taxProcessor =
-      await this.taxProcessorFactory.getTaxProcessor(ipAddress);
+      await this.taxCalculatorFactory.getTaxProcessor(ipAddress);
     const totalAmount = this.paymentProcessor.processPayment(
       cart,
       taxProcessor
