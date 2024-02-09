@@ -3,7 +3,6 @@ import { DefaultItem, Region, ShoppingCart } from '../types';
 import { RegionalTaxCalculatorFactory } from '../features/common/taxProcessing/RegionalTaxCalculatorFactory';
 import { DefaultTaxCalculator } from '../features/common/taxProcessing/DefaultTaxCalculator';
 import { TaxCalculator } from '../features/common/taxProcessing/TaxCalculator';
-import { EUROPE } from '../constants';
 import { EuropeTaxCalculator } from '../features/common/taxProcessing/EuropeTaxCalculator';
 
 jest.mock('../services/RegionService', () => ({
@@ -44,7 +43,10 @@ describe('ShoppingCartService', () => {
       ],
     };
 
-    const result = await shoppingCartService.checkout(mockShoppingCart, EUROPE);
+    const result = await shoppingCartService.checkout(
+      mockShoppingCart,
+      '1.1.1.1'
+    );
     expect(result).toBe(77);
   });
 
@@ -63,7 +65,10 @@ describe('ShoppingCartService', () => {
       ],
     };
 
-    const result = await shoppingCartService.checkout(mockShoppingCart, EUROPE);
+    const result = await shoppingCartService.checkout(
+      mockShoppingCart,
+      '1.1.1.2'
+    );
     expect(result).toBe(77);
   });
 });
